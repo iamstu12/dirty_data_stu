@@ -1,0 +1,98 @@
+---
+title: "Cake Analysis - Dirty Data Project"
+author: "Stuart McColl"
+date: "09/11/2020"
+output: 
+  html_document:
+    df_print: paged
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Analysis Questions
+
+1. Which cake has the most cocoa in it?
+2. For sponge cake, how many cups of ingredients are used in total?
+3. How many ingredients are measured in teaspoons?
+4. Which cake has the most unique ingredients?
+5. Which ingredients are used only once?
+
+### Step One
+Load Libraries
+
+```{r, warning=FALSE, message=FALSE}
+
+library(tidyverse)
+library(here)
+
+```
+
+### Step Two
+Read in Cleaned Data
+
+```{r, warning=FALSE, message=FALSE}
+
+cake_clean_data <- read_csv("/Users/Natifu/dirty_data_stu/task_2_cake/clean_data/cake_clean.csv")
+
+
+```
+
+
+### Question One
+Which cake has the most cocoa in it?
+
+```{r}
+
+cake_cocoa <- cake_clean_data %>%
+  filter(ingredient == "Cocoa") %>%
+  arrange(desc(ingredient))
+
+```
+
+
+### Question Two
+For sponge cake, how many cups of ingredients are used in total?
+
+
+```{r}
+
+cake_clean_data %>%
+  filter(cake == "Sponge", measure == "cup") %>%
+  summarise(sum_of_cups = sum(measurement))
+
+
+```
+
+### Question Three
+How many ingredients are measured in teaspoons?
+
+```{r}
+
+cake_teaspoon <- cake_clean_data %>%
+  filter(measure == "teaspoon") %>%
+  group_by(ingredient, measure) %>%
+  summarise(teaspoon_count = n()) %>%
+  arrange(desc(teaspoon_count))
+
+nrow(cake_teaspoon)
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
