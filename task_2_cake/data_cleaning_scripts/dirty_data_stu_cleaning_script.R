@@ -22,7 +22,7 @@ cake_ingredients <- read_csv(here("raw_data/cake_ingredient_code.csv"))
 
 # 1.2.1 Cleaning The Data ----
 
-# STAGE ONE - CONVERT TO LONG FORMAT
+# STAGE ONE - CONVERT TO LONG FORMAT ----
 
 cake_long_format <- cake_names %>%
   pivot_longer( #1
@@ -36,7 +36,7 @@ cake_long_format <- cake_names %>%
 #3 - Step 3 is to name the new column where the old columns are to go into
 #4 - Step 4 moves the values of the old column into a new column
 
-# STAGE TWO - REMOVE MISSING VALUES AND CLEAN NAMES
+# STAGE TWO - REMOVE MISSING VALUES AND CLEAN NAMES ----
 
 # As you will see from the results, there are a large number of 'nas', which
 # make the table messy. As we do not need the 'nas', I would drop them, followed,
@@ -51,7 +51,7 @@ cake_long_format <- cake_names %>%
   drop_na() %>%
   clean_names()
 
-# STAGE THREE - JOIN TABLES TO INCLUDE INGREDIENT NAME
+# STAGE THREE - JOIN TABLES TO INCLUDE INGREDIENT NAME ----
 
 # The first step is to change the name of the 'code' column to
 # 'ingredient_code' so that the two tables have the same column name
@@ -70,7 +70,7 @@ cake_long_format_joined <- cake_long_format %>%
 #2 - Step 2 is to remove the 'ingredient_code' column from view in order
     # to only show the ingredient's actual name.
 
-# STAGE FOUR - CHANGE THE 'ONE' MEASUREMENT TO 'WHOLE'
+# STAGE FOUR - CHANGE THE 'ONE' MEASUREMENT TO 'WHOLE' ----
 
 # As you will see from the results of the previous table, it reads in a 
 # complicated way - '10 one Egg White', so I changed 'one' to 'whole',
@@ -80,16 +80,9 @@ cake_long_format_cleaned <- cake_long_format_joined %>%
   mutate(
     measure = recode(measure, "one" = "whole"))
 
+# STAGE FIVE - WRITE CLEANED DATA TO CSV IN CLEAN DATA FOLDER ----
+
+write_csv(cake_long_format_cleaned, "clean_data/cake_clean.csv")
 
 
-
-
-
-
-
-
-
-
-
-
-
+# END ----
