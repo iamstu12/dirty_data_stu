@@ -47,9 +47,10 @@ Which cake has the most cocoa in it?
 
 ```{r}
 
-cake_cocoa <- cake_clean_data %>%
-  filter(ingredient == "Cocoa") %>%
-  arrange(desc(ingredient))
+cake_clean_data %>%
+  filter(ingredient == "cocoa") %>%
+  arrange(desc(ingredient)) %>%
+  slice(1)
 
 ```
 
@@ -61,7 +62,7 @@ For sponge cake, how many cups of ingredients are used in total?
 ```{r}
 
 cake_clean_data %>%
-  filter(cake == "Sponge", measure == "cup") %>%
+  filter(cake == "sponge", measure == "cup") %>%
   summarise(sum_of_cups = sum(measurement))
 
 
@@ -72,19 +73,43 @@ How many ingredients are measured in teaspoons?
 
 ```{r}
 
-cake_teaspoon <- cake_clean_data %>%
+cake_clean_data %>%
   filter(measure == "teaspoon") %>%
-  group_by(ingredient, measure) %>%
-  summarise(teaspoon_count = n()) %>%
-  arrange(desc(teaspoon_count))
-
-nrow(cake_teaspoon)
-
+  distinct(ingredient) %>%
+  summarise(teaspoon_count = n())
 
 
 ```
 
+### Question Four
+Which cake has the most unique ingredients?
 
+```{r}
+
+
+cake_clean_data %>%
+  group_by(ingredient) %>%
+  mutate(ingredient_count = n()) %>%
+  ungroup() %>%
+  filter(ingredient_count == 1) %>%
+  group_by(cake) %>%
+  summarise(ingredient_count = n()) %>%
+  slice_max(ingredient_count)
+
+
+```
+
+### Question Five
+Which ingredients are used only once?
+
+```{r}
+
+cake_clean_data %>%
+  group_by(ingredient) %>%
+  summarise(ingredient_count = n()) %>%
+  filter(ingredient_count == 1)
+
+```
 
 
 

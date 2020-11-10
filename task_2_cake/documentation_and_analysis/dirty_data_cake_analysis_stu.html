@@ -2812,9 +2812,72 @@ library(here)</code></pre>
 <div id="question-one" class="section level3">
 <h3>Question One</h3>
 <p>Which cake has the most cocoa in it?</p>
-<pre class="r"><code>cake_cocoa &lt;- cake_clean_data %&gt;%
-  filter(ingredient == &quot;Cocoa&quot;) %&gt;%
-  arrange(desc(ingredient))</code></pre>
+<pre class="r"><code>cake_clean_data %&gt;%
+  filter(ingredient == &quot;cocoa&quot;) %&gt;%
+  arrange(desc(ingredient)) %&gt;%
+  slice(1)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["cake"],"name":[1],"type":["chr"],"align":["left"]},{"label":["measurement"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["measure"],"name":[3],"type":["chr"],"align":["left"]},{"label":["ingredient"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"one bowl chocolate","2":"10","3":"tablespoon","4":"cocoa"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="question-two" class="section level3">
+<h3>Question Two</h3>
+<p>For sponge cake, how many cups of ingredients are used in total?</p>
+<pre class="r"><code>cake_clean_data %&gt;%
+  filter(cake == &quot;sponge&quot;, measure == &quot;cup&quot;) %&gt;%
+  summarise(sum_of_cups = sum(measurement))</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sum_of_cups"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"3.5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="question-three" class="section level3">
+<h3>Question Three</h3>
+<p>How many ingredients are measured in teaspoons?</p>
+<pre class="r"><code>cake_clean_data %&gt;%
+  filter(measure == &quot;teaspoon&quot;) %&gt;%
+  distinct(ingredient) %&gt;%
+  summarise(teaspoon_count = n())</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["teaspoon_count"],"name":[1],"type":["int"],"align":["right"]}],"data":[{"1":"8"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="question-four" class="section level3">
+<h3>Question Four</h3>
+<p>Which cake has the most unique ingredients?</p>
+<pre class="r"><code>cake_clean_data %&gt;%
+  group_by(ingredient) %&gt;%
+  mutate(ingredient_count = n()) %&gt;%
+  ungroup() %&gt;%
+  filter(ingredient_count == 1) %&gt;%
+  group_by(cake) %&gt;%
+  summarise(ingredient_count = n()) %&gt;%
+  slice_max(ingredient_count)</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["cake"],"name":[1],"type":["chr"],"align":["left"]},{"label":["ingredient_count"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"angel","2":"2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="question-five" class="section level3">
+<h3>Question Five</h3>
+<p>Which ingredients are used only once?</p>
+<pre class="r"><code>cake_clean_data %&gt;%
+  group_by(ingredient) %&gt;%
+  summarise(ingredient_count = n()) %&gt;%
+  filter(ingredient_count == 1)</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ingredient"],"name":[1],"type":["chr"],"align":["left"]},{"label":["ingredient_count"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"bananas","2":"1"},{"1":"cream of tartar","2":"1"},{"1":"crushed ice","2":"1"},{"1":"dried currants","2":"1"},{"1":"egg white","2":"1"},{"1":"nutmeg","2":"1"},{"1":"nuts","2":"1"},{"1":"zwiebach","2":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 
 

@@ -80,9 +80,32 @@ cake_long_format_cleaned <- cake_long_format_joined %>%
   mutate(
     measure = recode(measure, "one" = "whole"))
 
-# STAGE FIVE - WRITE CLEANED DATA TO CSV IN CLEAN DATA FOLDER ----
+# STAGE FIVE - IMPUTE THE MISSING VALUES IN THE MEASUREMENT COLUMN ----
+
+cake_long_format_cleaned <- cake_long_format_cleaned %>%
+  mutate(measure = coalesce(measure, "cup"))
+         
+
+# STAGE SIX - REMOVE THE CUP FROM INGREDIENTS ----
+
+cake_long_format_cleaned <- cake_long_format_cleaned %>%
+  mutate(
+    ingredient = str_replace(
+    ingredient, pattern = "Sour cream cup", "Sour cream" 
+  )
+)
+
+# STAGE SEVEN - CONVERT ALL TO LOWER CASE
+
+cake_long_format_cleaned <- cake_long_format_cleaned %>%
+  mutate_all(str_to_lower)
+  
+# STAGE EIGHT - WRITE CLEANED DATA TO CSV IN CLEAN DATA FOLDER ----
 
 write_csv(cake_long_format_cleaned, "clean_data/cake_clean.csv")
 
 
+
+
 # END ----
+
