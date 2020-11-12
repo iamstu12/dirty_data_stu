@@ -2806,11 +2806,21 @@ div.tocify {
 <p>Read in Cleaned Data</p>
 <pre class="r"><code>bb_candy_clean &lt;- read_csv(&quot;/Users/Natifu/dirty_data_stu/task_4_halloween/clean_data/bb_candy_all_cleaned&quot;)</code></pre>
 </div>
-<div id="question-1" class="section level2">
-<h2>Question 1</h2>
+<div id="question-1" class="section level3">
+<h3>Question 1</h3>
 <div id="what-is-the-total-number-of-candy-ratings-given-across-the-three-years.-number-of-candy-ratings-not-number-of-raters.-dont-count-missing-values" class="section level5">
 <h5>What is the total number of candy ratings given across the three years. (number of candy ratings, not number of raters. Don’t count missing values)</h5>
+<pre class="r"><code>bb_candy_clean %&gt;%
+  summarise(number_of_ratings = n())</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["number_of_ratings"],"name":[1],"type":["int"],"align":["right"]}],"data":[{"1":"769509"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
+</div>
+</div>
+<div id="section" class="section level3">
+<h3></h3>
 </div>
 
 
