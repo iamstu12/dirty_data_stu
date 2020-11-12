@@ -2792,7 +2792,8 @@ div.tocify {
 <h3>Analysis Questions</h3>
 <ol style="list-style-type: decimal">
 <li><p>What is the total number of candy ratings given across the three years. (number of candy ratings, not number of raters. Don’t count missing values)</p></li>
-<li><p>What was the average age of people who are going out trick or treating and the average age of people 3. not going trick or treating? For each of joy, despair and meh, which candy bar revived the most of these ratings?</p></li>
+<li><p>What was the average age of people who are going out trick or treating and the average age of people not going trick or treating?</p></li>
+<li><p>For each of joy, despair and meh, which candy bar revived the most of these ratings?</p></li>
 <li><p>How many people rated Starburst as despair?</p></li>
 </ol>
 </div>
@@ -2808,8 +2809,8 @@ div.tocify {
 </div>
 <div id="question-1" class="section level3">
 <h3>Question 1</h3>
-<div id="what-is-the-total-number-of-candy-ratings-given-across-the-three-years.-number-of-candy-ratings-not-number-of-raters.-dont-count-missing-values" class="section level5">
-<h5>What is the total number of candy ratings given across the three years. (number of candy ratings, not number of raters. Don’t count missing values)</h5>
+<div id="what-is-the-total-number-of-candy-ratings-given-across-the-three-years.-number-of-candy-ratings-not-number-of-raters.-dont-count-missing-values" class="section level4">
+<h4>What is the total number of candy ratings given across the three years. (number of candy ratings, not number of raters. Don’t count missing values)</h4>
 <pre class="r"><code>bb_candy_clean %&gt;%
   summarise(number_of_ratings = n())</code></pre>
 <div data-pagedtable="false">
@@ -2819,8 +2820,35 @@ div.tocify {
 </div>
 </div>
 </div>
-<div id="section" class="section level3">
-<h3></h3>
+<div id="question-2" class="section level3">
+<h3>Question 2</h3>
+<div id="what-was-the-average-age-of-people-who-are-going-out-trick-or-treating-and-the-average-age-of-people-not-going-trick-or-treating" class="section level4">
+<h4>What was the average age of people who are going out trick or treating and the average age of people not going trick or treating?</h4>
+<pre class="r"><code>bb_candy_clean %&gt;%
+  filter(trick_or_treat == TRUE) %&gt;%
+  drop_na() %&gt;%
+  summarise(average_age = mean(age))</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["average_age"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"34.06507"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>bb_candy_clean %&gt;%
+  filter(trick_or_treat == FALSE) %&gt;%
+  drop_na() %&gt;%
+  summarise(average_age = mean(age))</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["average_age"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"38.03765"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div id="question-3" class="section level3">
+<h3>Question 3</h3>
+<div id="for-each-of-joy-despair-and-meh-which-candy-bar-revived-the-most-of-these-ratings" class="section level4">
+<h4>For each of joy, despair and meh, which candy bar revived the most of these ratings?</h4>
+</div>
 </div>
 
 

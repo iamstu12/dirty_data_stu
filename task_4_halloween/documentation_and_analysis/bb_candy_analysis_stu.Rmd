@@ -46,7 +46,7 @@ bb_candy_clean <- read_csv("/Users/Natifu/dirty_data_stu/task_4_halloween/clean_
 
 ### Question 1
 
-##### What is the total number of candy ratings given across the three years. (number of candy ratings, not number of raters. Don’t count missing values)
+#### What is the total number of candy ratings given across the three years. (number of candy ratings, not number of raters. Don’t count missing values)
 
 ```{r}
 
@@ -57,13 +57,29 @@ bb_candy_clean %>%
 
 ### Question 2
 
-What was the average age of people who are going out trick or treating and the average age of people not going trick or treating?
+#### What was the average age of people who are going out trick or treating and the average age of people not going trick or treating?
 
 ```{r}
 
-
+bb_candy_clean %>%
+  filter(trick_or_treat == TRUE) %>%
+  drop_na() %>%
+  summarise(average_age_who_do_trick_or_treat = mean(age))
 
 ```
+
+```{r}
+
+bb_candy_clean %>%
+  filter(trick_or_treat == FALSE) %>%
+  drop_na() %>%
+  summarise(average_age_who_do_not_trick_or_treat = mean(age))
+
+```
+
+### Question 3
+
+#### For each of joy, despair and meh, which candy bar revived the most of these ratings?
 
 
 
