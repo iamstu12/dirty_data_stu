@@ -213,8 +213,64 @@ bb_candy_all_cleaned <- bb_candy_all_cleaned %>%
 
 # Item Gifted Column ----
 
+
+bb_candy_all_cleaned <- bb_candy_all_cleaned %>%
+  mutate(item_gifted = str_remove_all(
+    item_gifted, pattern = "[q][0-9][_]"))
+
 unique(bb_candy_all_cleaned$item_gifted)
 
+bb_candy_all_cleaned <- bb_candy_all_cleaned %>%
+  mutate(item_gifted = str_replace_all(
+    item_gifted, pattern = "_", " "))
 
+bb_candy_all_cleaned <- bb_candy_all_cleaned %>%
+  mutate(
+    item_gifted = case_when(
+      str_detect(item_gifted, "x100 grand bar") ~ "100 grand bar",
+      str_detect(item_gifted, "hershey s kissables") ~ "hershey's kissables",
+      str_detect(item_gifted, "dark chocolate hershey") ~ "hershey's dark chocolate",
+      str_detect(item_gifted, "hershey s milk chocolate") ~ "hershey's milk chocolate",
+      str_detect(item_gifted, "jolly rancher bad flavor") ~ "jolly ranchers bad flavor",
+      str_detect(item_gifted, "reese s peanut butter cups") ~ "reese's peanut butter cups",
+      str_detect(item_gifted, "tolberone something or other") ~ "toblerone",
+      str_detect(item_gifted, "peanut m m s") ~ "m&m's peanut",
+      str_detect(item_gifted, "regular m ms") ~ "m&m's regular",
+      str_detect(item_gifted, "mint m ms") ~ "m&m's mint",
+      str_detect(item_gifted, "boxo raisins") ~ "box o raisins",
+      str_detect(item_gifted, "hersheys dark chocolate") ~ "hershey's dark chocolate",
+      str_detect(item_gifted, "hersheys kisses") ~ "hershey's kisses",
+      str_detect(item_gifted, "blue m ms") ~ "m&m's blue",
+      str_detect(item_gifted, "red m ms") ~ "m&m's red",
+      str_detect(item_gifted, "reeses pieces") ~ "reese's pieces",
+      str_detect(item_gifted, "sourpatch kids i e abominations of nature") ~ "sourpatch kids",
+      str_detect(item_gifted, "anonymous brown globs that come in black and orange wrappers a k a mary janes") ~ "mary janes",
+      str_detect(item_gifted, "green party m ms") ~ "m&m's green",
+      str_detect(item_gifted, "independent m ms") ~ "m&m's regular",
+      TRUE ~ item_gifted))
 
+unique(bb_candy_all_cleaned$item_gifted)
+
+# Trick or Treat Column ----
+
+bb_candy_all_cleaned <- bb_candy_all_cleaned %>%
+  mutate(
+    trick_or_treat = recode(trick_or_treat, "yes" = TRUE, "no" = FALSE)
+  )
+
+bb_candy_all_cleaned <- bb_candy_all_cleaned %>%
+  mutate(trick_or_treat = as.logical(trick_or_treat))
+
+# Reaction Column ----
+
+unique(bb_candy_all_cleaned$reaction)
+
+bb_candy_all_cleaned <- bb_candy_all_cleaned %>%
+  drop_na(reaction)    
+
+# Write Data To Clean Folder For Analysis ----
+
+write_csv(bb_candy_all_cleaned, "clean_data/bb_candy_all_cleaned")
+
+# End ----
 
