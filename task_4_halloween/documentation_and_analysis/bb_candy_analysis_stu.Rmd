@@ -24,6 +24,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 4. How many people rated Starburst as despair?
 
+5 What was the most popular candy bar by this rating system for each gender in the dataset?
+
+6. What was the most popular candy bar in each year?
+
+7. What was the most popular candy bar by this rating for people in US, Canada, UK and all other countries?
+
 
 ### Step One
 Load Libraries
@@ -80,6 +86,60 @@ bb_candy_clean %>%
 ### Question 3
 
 #### For each of joy, despair and meh, which candy bar revived the most of these ratings?
+
+```{r}
+
+bb_candy_clean %>%
+  filter(reaction == "joy") %>%
+  group_by(item_gifted) %>%
+  summarise(joy_count = n()) %>%
+  arrange(desc(joy_count)) %>%
+  slice(1)
+
+```
+
+```{r}
+
+bb_candy_clean %>%
+  filter(reaction == "meh") %>%
+  group_by(item_gifted) %>%
+  summarise(meh_count = n()) %>%
+  arrange(desc(meh_count)) %>%
+  slice(1)
+
+```
+
+```{r}
+
+bb_candy_clean %>%
+  filter(reaction == "despair") %>%
+  group_by(item_gifted) %>%
+  summarise(despair_count = n()) %>%
+  arrange(desc(despair_count)) %>%
+  slice(1)
+
+```
+
+### Question 4
+
+#### How many people rated Starburst as despair?
+
+```{r}
+
+bb_candy_clean %>%
+  filter(reaction == "despair",
+         item_gifted == "starburst") %>%
+  summarise(starburst_despair_count = n())
+
+```
+
+### Question 5
+
+#### What was the most popular candy bar by this rating system for each gender in the dataset?
+
+
+
+
 
 
 
