@@ -1,0 +1,56 @@
+---
+title: "bb_candy_analysis_stu"
+author: "Stuart McColl"
+date: "12/11/2020"
+output: 
+  html_document:
+    df_print: paged
+    toc: yes
+    toc_float: yes
+    
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Analysis Questions
+
+1. What is the total number of candy ratings given across the three years. (number of candy ratings, not number of raters. Don’t count missing values)
+
+2. What was the average age of people who are going out trick or treating and the average age of people 3. not going trick or treating?
+For each of joy, despair and meh, which candy bar revived the most of these ratings?
+
+3. How many people rated Starburst as despair?
+
+
+### Step One
+Load Libraries
+
+```{r, warning=FALSE, message=FALSE}
+
+library(tidyverse)
+
+```
+
+### Step Two
+Read in Cleaned Data
+
+```{r, warning=FALSE, message=FALSE}
+
+bb_candy_clean <- read_csv("/Users/Natifu/dirty_data_stu/task_4_halloween/clean_data/bb_candy_all_cleaned")
+
+```
+
+
+### Question 1
+
+##### What is the total number of candy ratings given across the three years. (number of candy ratings, not number of raters. Don’t count missing values)
+
+
+
+
+
+
+
+
