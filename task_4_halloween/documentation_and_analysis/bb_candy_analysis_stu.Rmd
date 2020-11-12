@@ -133,10 +133,73 @@ bb_candy_clean %>%
 
 ```
 
+### Note For Next Three Questions
+
+#### For the next three questions, count despair as -1, joy as +1 and meh as 0.
+
+```{r}
+
+bb_candy_clean %>%
+  mutate(reaction_code = recode(
+    reaction, "despair" = -1,
+              "joy" = 1,
+              "meh" = 0
+    ))
+
+```
+
 ### Question 5
 
 #### What was the most popular candy bar by this rating system for each gender in the dataset?
 
+```{r}
+
+bb_candy_clean %>%
+  filter(gender == "male") %>%
+  group_by(item_gifted) %>%
+  summarise(rating_male = n()) %>%
+  arrange(desc(rating_male)) %>%
+  slice(1)
+
+```
+
+```{r}
+
+bb_candy_clean %>%
+  filter(gender == "female") %>%
+  group_by(item_gifted) %>%
+  summarise(rating_female = n()) %>%
+  arrange(desc(rating_female)) %>%
+  slice(1)
+
+
+```
+
+```{r}
+
+bb_candy_clean %>%
+  filter(gender == "other") %>%
+  group_by(item_gifted) %>%
+  summarise(rating_other = n()) %>%
+  arrange(desc(rating_other)) %>%
+  slice(1)
+
+```
+
+```{r}
+
+bb_candy_clean %>%
+  filter(gender == "undisclosed") %>%
+  group_by(item_gifted) %>%
+  summarise(rating_undisclosed = n()) %>%
+  arrange(desc(rating_undisclosed)) %>%
+  slice(1)
+
+```
+
+### Question 6
+
+#### 
 
 
 
