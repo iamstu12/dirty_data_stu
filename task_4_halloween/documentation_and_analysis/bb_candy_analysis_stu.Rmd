@@ -133,9 +133,9 @@ bb_candy_clean %>%
 
 ```
 
-### Note For Next Three Questions
+### Question 5
 
-#### For the next three questions, count despair as -1, joy as +1 and meh as 0.
+#### Count despair as -1, joy as +1 and meh as 0.
 
 ```{r}
 
@@ -148,7 +148,7 @@ bb_candy_clean %>%
 
 ```
 
-### Question 5
+### Question 6
 
 #### What was the most popular candy bar by this rating system for each gender in the dataset?
 
@@ -191,15 +191,171 @@ bb_candy_clean %>%
 bb_candy_clean %>%
   filter(gender == "undisclosed") %>%
   group_by(item_gifted) %>%
-  summarise(rating_undisclosed = n()) %>%
-  arrange(desc(rating_undisclosed)) %>%
+  summarise(rating_undisclosed_gender = n()) %>%
+  arrange(desc(rating_undisclosed_gender)) %>%
   slice(1)
 
 ```
 
-### Question 6
+### Question 7
 
-#### 
+#### What was the most popular candy bar in each year?
+
+```{r}
+
+bb_candy_clean %>%
+  filter(date >= "2015-01-01" & date <= "2015-12-31") %>%
+  group_by(item_gifted) %>%
+  summarise(rating_score_2015 = n()) %>%
+  arrange(desc(rating_score_2015)) %>%
+  slice(1)
+  
+```
+
+```{r}
+
+bb_candy_clean %>%
+  filter(date >= "2016-01-01" & date <= "2016-12-31") %>%
+  group_by(item_gifted) %>%
+  summarise(rating_score_2016 = n()) %>%
+  arrange(desc(rating_score_2016)) %>%
+  slice(1)
+
+```
+
+```{r}
+
+bb_candy_clean %>%
+  filter(date >= "2017-01-01" & date <= "2017-12-31") %>%
+  group_by(item_gifted) %>%
+  summarise(rating_score_2017 = n()) %>%
+  arrange(desc(rating_score_2017)) %>%
+  slice(1)
+
+```
+
+### Question 8
+
+#### What was the most popular candy bar by this rating for people in US, Canada, UK and all other countries?
+
+```{r}
+
+unique(bb_candy_clean$country)
+
+```
+
+
+```{r}
+
+bb_candy_clean %>%
+  filter(country == "undisclosed") %>%
+  group_by(item_gifted) %>%
+  summarise(top_candy_undisclosed_country = n()) %>%
+  arrange(desc(top_candy_undisclosed_country)) %>%
+  slice(1)
+
+```
+
+```{r}
+
+bb_candy_clean %>%
+  filter(country == "canada") %>%
+  group_by(item_gifted) %>%
+  summarise(top_candy_canada = n()) %>%
+  arrange(desc(top_candy_canada)) %>%
+  slice(1)
+
+```
+
+```{r}
+
+bb_candy_clean %>%
+  filter(country == "united states") %>%
+  group_by(item_gifted) %>%
+  summarise(top_candy_united_states = n()) %>%
+  arrange(desc(top_candy_united_states)) %>%
+  slice(1)
+
+```
+
+```{r}
+
+bb_candy_clean %>%
+  filter(country == "europe") %>%
+  group_by(item_gifted) %>%
+  summarise(top_candy_europe = n()) %>%
+  arrange(desc(top_candy_europe)) %>%
+  slice(1)
+
+```
+
+```{r}
+
+bb_candy_clean %>%
+  filter(country == "asia") %>%
+  group_by(item_gifted) %>%
+  summarise(top_candy_asia = n()) %>%
+  arrange(desc(top_candy_asia)) %>%
+  slice(1)
+
+```
+
+```{r}
+
+bb_candy_clean %>%
+  filter(country == "central america") %>%
+  group_by(item_gifted) %>%
+  summarise(top_candy_central_america = n()) %>%
+  arrange(desc(top_candy_central_america)) %>%
+  slice(1)
+
+```
+
+```{r}
+bb_candy_clean %>%
+  filter(country == "new zealand") %>%
+  group_by(item_gifted) %>%
+  summarise(top_candy_new_zealand = n()) %>%
+  arrange(desc(top_candy_new_zealand)) %>%
+  slice(1)
+
+
+```
+
+```{r}
+
+bb_candy_clean %>%
+  filter(country == "north america") %>%
+  group_by(item_gifted) %>%
+  summarise(top_candy_north_america = n()) %>%
+  arrange(desc(top_candy_north_america)) %>%
+  slice(1)
+
+```
+
+```{r}
+
+bb_candy_clean %>%
+  filter(country == "south america") %>%
+  group_by(item_gifted) %>%
+  summarise(top_candy_south_america = n()) %>%
+  arrange(desc(top_candy_south_america)) %>%
+  slice(1)
+
+```
+
+```{r}
+
+bb_candy_clean %>%
+  filter(country == "africa") %>%
+  group_by(item_gifted) %>%
+  summarise(top_candy_africa = n()) %>%
+  arrange(desc(top_candy_africa)) %>%
+  slice(1)
+
+```
+
+
 
 
 
