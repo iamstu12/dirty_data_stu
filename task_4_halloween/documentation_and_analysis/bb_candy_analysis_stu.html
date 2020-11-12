@@ -2795,9 +2795,8 @@ div.tocify {
 <li><p>What was the average age of people who are going out trick or treating and the average age of people not going trick or treating?</p></li>
 <li><p>For each of joy, despair and meh, which candy bar revived the most of these ratings?</p></li>
 <li><p>How many people rated Starburst as despair?</p></li>
-</ol>
-<p>5 What was the most popular candy bar by this rating system for each gender in the dataset?</p>
-<ol start="6" style="list-style-type: decimal">
+<li><p>Count despair as -1, joy as +1 and meh as 0.</p></li>
+<li><p>What was the most popular candy bar by this rating system for each gender in the dataset?</p></li>
 <li><p>What was the most popular candy bar in each year?</p></li>
 <li><p>What was the most popular candy bar by this rating for people in US, Canada, UK and all other countries?</p></li>
 </ol>
@@ -2816,6 +2815,9 @@ div.tocify {
 <h3>Question 1</h3>
 <div id="what-is-the-total-number-of-candy-ratings-given-across-the-three-years.-number-of-candy-ratings-not-number-of-raters.-dont-count-missing-values" class="section level4">
 <h4>What is the total number of candy ratings given across the three years. (number of candy ratings, not number of raters. Don’t count missing values)</h4>
+</div>
+<div id="for-this-question-i-simply-summarised-the-number-of-ratings.-there-was-no-missing-values-because-i-dropped-them-during-the-cleaning-stage" class="section level4">
+<h4>For this question I simply summarised the number of ratings. There was no missing values because I dropped them during the cleaning stage:</h4>
 <pre class="r"><code>bb_candy_clean %&gt;%
   summarise(number_of_ratings = n())</code></pre>
 <div data-pagedtable="false">
@@ -2824,35 +2826,47 @@ div.tocify {
   </script>
 </div>
 </div>
+<div id="answer-769509-ratings-given." class="section level4">
+<h4>Answer = 769,509 ratings given.</h4>
+</div>
 </div>
 <div id="question-2" class="section level3">
 <h3>Question 2</h3>
 <div id="what-was-the-average-age-of-people-who-are-going-out-trick-or-treating-and-the-average-age-of-people-not-going-trick-or-treating" class="section level4">
 <h4>What was the average age of people who are going out trick or treating and the average age of people not going trick or treating?</h4>
+</div>
+<div id="for-this-question-i-looked-at-the-two-categories-separately.-i-applied-a-filter-for-true-and-false-dropping-any-missing-values-and-calculated-the-mean-age-which-i-then-rounded-to-a-whole-number" class="section level4">
+<h4>For this question, I looked at the two categories separately. I applied a filter for ‘TRUE’ and ‘FALSE’, dropping any missing values and calculated the mean age, which I then rounded to a whole number:</h4>
 <pre class="r"><code>bb_candy_clean %&gt;%
   filter(trick_or_treat == TRUE) %&gt;%
   drop_na() %&gt;%
-  summarise(average_age_who_do_trick_or_treat = mean(age))</code></pre>
+  summarise(average_age_who_do_trick_or_treat = round(mean(age)))</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["average_age_who_do_trick_or_treat"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"34.06507"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["average_age_who_do_trick_or_treat"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"34"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <pre class="r"><code>bb_candy_clean %&gt;%
   filter(trick_or_treat == FALSE) %&gt;%
   drop_na() %&gt;%
-  summarise(average_age_who_do_not_trick_or_treat = mean(age))</code></pre>
+  summarise(average_age_who_do_not_trick_or_treat = round(mean(age)))</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["average_age_who_do_not_trick_or_treat"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"38.03765"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["average_age_who_do_not_trick_or_treat"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"38"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+</div>
+<div id="answer---the-average-age-for-someone-who-goes-trick-or-treating-is-34-and-the-average-age-for-someone-who-does-does-go-trick-or-treating-is-38." class="section level4">
+<h4>Answer - The average age for someone who goes trick or treating is 34 and the average age for someone who does does go trick or treating is 38.</h4>
 </div>
 </div>
 <div id="question-3" class="section level3">
 <h3>Question 3</h3>
 <div id="for-each-of-joy-despair-and-meh-which-candy-bar-revived-the-most-of-these-ratings" class="section level4">
 <h4>For each of joy, despair and meh, which candy bar revived the most of these ratings?</h4>
+</div>
+<div id="for-this-question-i-applied-a-filter-for-each-respective-rating-and-counted-the-number-of-ratings" class="section level4">
+<h4>For this question I applied a filter for each respective rating and counted the number of ratings:</h4>
 <pre class="r"><code>bb_candy_clean %&gt;%
   filter(reaction == &quot;joy&quot;) %&gt;%
   group_by(item_gifted) %&gt;%
@@ -2890,11 +2904,17 @@ div.tocify {
   </script>
 </div>
 </div>
+<div id="answer---any-full-sized-candy-bar-receieved-the-highest-joy-rating-regular-mms-receieved-the-highest-meh-rating-and-broken-glow-stick-recieved-the-highest-despair-rating." class="section level4">
+<h4>Answer - ‘Any Full Sized Candy Bar’ receieved the highest ‘joy’ rating, ‘Regular M&amp;M’s’ receieved the highest ‘meh’ rating and ‘Broken Glow Stick’ recieved the highest ‘despair’ rating.</h4>
+</div>
 </div>
 <div id="question-4" class="section level3">
 <h3>Question 4</h3>
 <div id="how-many-people-rated-starburst-as-despair" class="section level4">
 <h4>How many people rated Starburst as despair?</h4>
+</div>
+<div id="for-this-question-i-filtered-by-despair-and-starburst-respectively-then-applied-a-count" class="section level4">
+<h4>For this question I filtered by ‘despair’ and ‘starburst’ respectively, then applied a count:</h4>
 <pre class="r"><code>bb_candy_clean %&gt;%
   filter(reaction == &quot;despair&quot;,
          item_gifted == &quot;starburst&quot;) %&gt;%
@@ -2905,11 +2925,17 @@ div.tocify {
   </script>
 </div>
 </div>
+<div id="answer---1990-people-rated-starburst-as-despair." class="section level4">
+<h4>Answer - 1,990 people rated ‘starburst’ as ’despair.</h4>
+</div>
 </div>
 <div id="question-5" class="section level3">
 <h3>Question 5</h3>
 <div id="count-despair-as--1-joy-as-1-and-meh-as-0." class="section level4">
 <h4>Count despair as -1, joy as +1 and meh as 0.</h4>
+</div>
+<div id="for-this-question-i-recoded-the-reaction-column-and-added-a-new-column-for-the-results" class="section level4">
+<h4>For this question, I recoded the reaction column and added a new column for the results:</h4>
 <pre class="r"><code>bb_candy_clean %&gt;%
   mutate(reaction_code = recode(
     reaction, &quot;despair&quot; = -1,
@@ -2927,6 +2953,9 @@ div.tocify {
 <h3>Question 6</h3>
 <div id="what-was-the-most-popular-candy-bar-by-this-rating-system-for-each-gender-in-the-dataset" class="section level4">
 <h4>What was the most popular candy bar by this rating system for each gender in the dataset?</h4>
+</div>
+<div id="for-this-question-i-filtered-each-respective-gender-separately-and-applied-a-count-to-the-item_gifted-column" class="section level4">
+<h4>For this question, I filtered each respective gender separately and applied a count to the ‘item_gifted’ column:</h4>
 <pre class="r"><code>bb_candy_clean %&gt;%
   filter(gender == &quot;male&quot;) %&gt;%
   group_by(item_gifted) %&gt;%
@@ -2976,11 +3005,17 @@ div.tocify {
   </script>
 </div>
 </div>
+<div id="answer---the-top-rated-candy-for-male-femal-and-other-is-regular-mms-and-the-top-rated-candy-for-any-gender-undisclosed-was-reeses-peanut-butter-cups." class="section level4">
+<h4>Answer - The top rated candy for male, femal and other is ‘Regular M&amp;M’s and the top rated candy for any gender ’undisclosed’ was ’Reese’s Peanut Butter Cups.</h4>
+</div>
 </div>
 <div id="question-7" class="section level3">
 <h3>Question 7</h3>
 <div id="what-was-the-most-popular-candy-bar-in-each-year" class="section level4">
 <h4>What was the most popular candy bar in each year?</h4>
+</div>
+<div id="for-this-question-i-applied-a-filter-to-the-year-column-and-applied-a-count" class="section level4">
+<h4>For this question, I applied a filter to the ‘year’ column and applied a count:</h4>
 <pre class="r"><code>bb_candy_clean %&gt;%
   filter(date &gt;= &quot;2015-01-01&quot; &amp; date &lt;= &quot;2015-12-31&quot;) %&gt;%
   group_by(item_gifted) %&gt;%
@@ -3018,11 +3053,17 @@ div.tocify {
   </script>
 </div>
 </div>
+<div id="answer---the-top-rated-candy-for-2015-was-reeses-peanut-butter-cups-for-2016-it-was-any-full-sized-candy-bar-and-for-2017-unfortunately-i-was-unable-to-get-a-result-as-it-looks-like-the-rows-for-2017-did-not-bind-during-the-cleaning-stage." class="section level4">
+<h4>Answer - The top rated candy for 2015 was ‘Reese’s Peanut Butter Cups’, for 2016 it was ‘Any Full Sized Candy Bar’ and for 2017, unfortunately I was unable to get a result as it looks like the rows for 2017 did not ‘bind’ during the cleaning stage.</h4>
+</div>
 </div>
 <div id="question-8" class="section level3">
 <h3>Question 8</h3>
 <div id="what-was-the-most-popular-candy-bar-by-this-rating-for-people-in-us-canada-uk-and-all-other-countries" class="section level4">
 <h4>What was the most popular candy bar by this rating for people in US, Canada, UK and all other countries?</h4>
+</div>
+<div id="for-this-question-the-first-thing-i-did-was-pull-out-the-unique-names-for-the-country-column.-i-then-applied-a-filter-for-each-country-grouped-it-by-the-item_gifted-and-applied-a-count" class="section level4">
+<h4>For this question, the first thing I did was pull out the ‘unique’ names for the country column. I then applied a filter for each country, grouped it by the ‘item_gifted’ and applied a count:</h4>
 <pre class="r"><code>unique(bb_candy_clean$country)</code></pre>
 <pre><code>##  [1] &quot;undisclosed&quot;     &quot;canada&quot;          &quot;united states&quot;   &quot;europe&quot;         
 ##  [5] &quot;asia&quot;            &quot;central america&quot; &quot;new zealand&quot;     &quot;north america&quot;  
@@ -3147,6 +3188,19 @@ div.tocify {
 {"columns":[{"label":["item_gifted"],"name":[1],"type":["chr"],"align":["left"]},{"label":["top_candy_africa"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"100 grand bar","2":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+</div>
+<div id="answer" class="section level4">
+<h4>Answer:</h4>
+<ul>
+<li>Canada - M&amp;M’s Regular</li>
+<li>Europe - M&amp;M’s Regular</li>
+<li>Asia - M&amp;M’s Regular</li>
+<li>Central America - Anonymous Brown Globs</li>
+<li>New Zealand - Any Full Sized Candy Bar</li>
+<li>North America - M&amp;M’s Regular</li>
+<li>South America - 100 Grand Bar</li>
+<li>Africa - 100 Grand Bar</li>
+</ul>
 </div>
 </div>
 

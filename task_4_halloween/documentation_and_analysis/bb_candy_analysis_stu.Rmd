@@ -24,11 +24,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 4. How many people rated Starburst as despair?
 
-5 What was the most popular candy bar by this rating system for each gender in the dataset?
+5. Count despair as -1, joy as +1 and meh as 0.
 
-6. What was the most popular candy bar in each year?
+6. What was the most popular candy bar by this rating system for each gender in the dataset?
 
-7. What was the most popular candy bar by this rating for people in US, Canada, UK and all other countries?
+7. What was the most popular candy bar in each year?
+
+8. What was the most popular candy bar by this rating for people in US, Canada, UK and all other countries?
 
 
 ### Step One
@@ -54,7 +56,7 @@ bb_candy_clean <- read_csv("/Users/Natifu/dirty_data_stu/task_4_halloween/clean_
 
 #### What is the total number of candy ratings given across the three years. (number of candy ratings, not number of raters. Don’t count missing values)
 
-#### For this question I simply summarised the number of ratings. There was no missing values because I dropped them during the cleaning stage:
+##### For this question I simply summarised the number of ratings. There was no missing values because I dropped them during the cleaning stage:
 
 ```{r, warning=FALSE}
 
@@ -62,15 +64,15 @@ bb_candy_clean %>%
   summarise(number_of_ratings = n())
 
 ```
-#### Answer = 769,509 ratings given.
+##### Answer = 769,509 ratings given.
 
 ### Question 2
 
 #### What was the average age of people who are going out trick or treating and the average age of people not going trick or treating?
 
-#### For this question, I looked at the two categories separately. I applied a filter for 'TRUE' and 'FALSE', dropping any missing values and calculated the mean age, which I then rounded to a whole number:
+##### For this question, I looked at the two categories separately. I applied a filter for 'TRUE' and 'FALSE', dropping any missing values and calculated the mean age, which I then rounded to a whole number:
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(trick_or_treat == TRUE) %>%
@@ -79,7 +81,7 @@ bb_candy_clean %>%
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(trick_or_treat == FALSE) %>%
@@ -88,15 +90,15 @@ bb_candy_clean %>%
 
 ```
 
-#### Answer - The average age for someone who goes trick or treating is 34 and the average age for someone who does does go trick or treating is 38.
+##### Answer - The average age for someone who goes trick or treating is 34 and the average age for someone who does does go trick or treating is 38.
 
 ### Question 3
 
 #### For each of joy, despair and meh, which candy bar revived the most of these ratings?
 
-#### For this question I applied a filter for each respective rating and counted the number of ratings:
+##### For this question I applied a filter for each respective rating and counted the number of ratings:
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(reaction == "joy") %>%
@@ -107,7 +109,7 @@ bb_candy_clean %>%
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(reaction == "meh") %>%
@@ -118,7 +120,7 @@ bb_candy_clean %>%
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(reaction == "despair") %>%
@@ -129,7 +131,7 @@ bb_candy_clean %>%
 
 ```
 
-#### Answer - 'Any Full Sized Candy Bar' receieved the highest 'joy' rating, 'Regular M&M's' receieved the highest 'meh' rating and 'Broken Glow Stick' recieved the highest 'despair' rating.
+##### Answer - 'Any Full Sized Candy Bar' receieved the highest 'joy' rating, 'Regular M&M's' receieved the highest 'meh' rating and 'Broken Glow Stick' recieved the highest 'despair' rating.
 
 ### Question 4
 
@@ -137,7 +139,7 @@ bb_candy_clean %>%
 
 #### For this question I filtered by 'despair' and 'starburst' respectively, then applied a count:
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(reaction == "despair",
@@ -154,7 +156,7 @@ bb_candy_clean %>%
 
 #### For this question, I recoded the reaction column and added a new column for the results:
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   mutate(reaction_code = recode(
@@ -169,9 +171,9 @@ bb_candy_clean %>%
 
 #### What was the most popular candy bar by this rating system for each gender in the dataset?
 
-#### For this question, I filtered each respective gender separately and applied a count to the 'item_gifted' column:
+##### For this question, I filtered each respective gender separately and applied a count to the 'item_gifted' column:
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(gender == "male") %>%
@@ -182,7 +184,7 @@ bb_candy_clean %>%
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(gender == "female") %>%
@@ -194,7 +196,7 @@ bb_candy_clean %>%
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(gender == "other") %>%
@@ -205,7 +207,7 @@ bb_candy_clean %>%
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(gender == "undisclosed") %>%
@@ -224,7 +226,7 @@ bb_candy_clean %>%
 
 #### For this question, I applied a filter to the 'year' column and applied a count:
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(date >= "2015-01-01" & date <= "2015-12-31") %>%
@@ -235,7 +237,7 @@ bb_candy_clean %>%
   
 ```
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(date >= "2016-01-01" & date <= "2016-12-31") %>%
@@ -246,7 +248,7 @@ bb_candy_clean %>%
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(date >= "2017-01-01" & date <= "2017-12-31") %>%
@@ -263,16 +265,16 @@ bb_candy_clean %>%
 
 #### What was the most popular candy bar by this rating for people in US, Canada, UK and all other countries?
 
-#### For this question, the first thing I did was pull out the 'unique' names for the country column. I then applied a filter for each country, grouped it by the 'item_gifted' and applied a count: 
+##### For this question, the first thing I did was pull out the 'unique' names for the country column. I then applied a filter for each country, grouped it by the 'item_gifted' and applied a count: 
 
-```{r}
+```{r, warning=FALSE}
 
 unique(bb_candy_clean$country)
 
 ```
 
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(country == "undisclosed") %>%
@@ -283,7 +285,7 @@ bb_candy_clean %>%
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(country == "canada") %>%
@@ -294,7 +296,7 @@ bb_candy_clean %>%
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(country == "united states") %>%
@@ -305,7 +307,7 @@ bb_candy_clean %>%
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(country == "europe") %>%
@@ -316,7 +318,7 @@ bb_candy_clean %>%
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(country == "asia") %>%
@@ -327,7 +329,7 @@ bb_candy_clean %>%
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(country == "central america") %>%
@@ -338,7 +340,7 @@ bb_candy_clean %>%
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 bb_candy_clean %>%
   filter(country == "new zealand") %>%
   group_by(item_gifted) %>%
@@ -349,7 +351,7 @@ bb_candy_clean %>%
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(country == "north america") %>%
@@ -360,7 +362,7 @@ bb_candy_clean %>%
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(country == "south america") %>%
@@ -371,7 +373,7 @@ bb_candy_clean %>%
 
 ```
 
-```{r}
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   filter(country == "africa") %>%
@@ -382,6 +384,18 @@ bb_candy_clean %>%
 
 ```
 
+##### Answer:
+
+* Canada - M&M's Regular
+* Europe - M&M's Regular
+* Asia - M&M's Regular
+* Central America - Anonymous Brown Globs
+* New Zealand - Any Full Sized Candy Bar
+* North America - M&M's Regular
+* South America - 100 Grand Bar
+* Africa - 100 Grand Bar
+
+### End
 
 
 
