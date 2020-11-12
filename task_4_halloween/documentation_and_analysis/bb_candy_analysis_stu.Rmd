@@ -54,23 +54,28 @@ bb_candy_clean <- read_csv("/Users/Natifu/dirty_data_stu/task_4_halloween/clean_
 
 #### What is the total number of candy ratings given across the three years. (number of candy ratings, not number of raters. Don’t count missing values)
 
-```{r}
+#### For this question I simply summarised the number of ratings. There was no missing values because I dropped them during the cleaning stage:
+
+```{r, warning=FALSE}
 
 bb_candy_clean %>%
   summarise(number_of_ratings = n())
 
 ```
+#### Answer = 769,509 ratings given.
 
 ### Question 2
 
 #### What was the average age of people who are going out trick or treating and the average age of people not going trick or treating?
+
+#### For this question, I looked at the two categories separately. I applied a filter for 'TRUE' and 'FALSE', dropping any missing values and calculated the mean age, which I then rounded to a whole number:
 
 ```{r}
 
 bb_candy_clean %>%
   filter(trick_or_treat == TRUE) %>%
   drop_na() %>%
-  summarise(average_age_who_do_trick_or_treat = mean(age))
+  summarise(average_age_who_do_trick_or_treat = round(mean(age)))
 
 ```
 
@@ -79,13 +84,17 @@ bb_candy_clean %>%
 bb_candy_clean %>%
   filter(trick_or_treat == FALSE) %>%
   drop_na() %>%
-  summarise(average_age_who_do_not_trick_or_treat = mean(age))
+  summarise(average_age_who_do_not_trick_or_treat = round(mean(age)))
 
 ```
+
+#### Answer - The average age for someone who goes trick or treating is 34 and the average age for someone who does does go trick or treating is 38.
 
 ### Question 3
 
 #### For each of joy, despair and meh, which candy bar revived the most of these ratings?
+
+#### For this question I applied a filter for each respective rating and counted the number of ratings:
 
 ```{r}
 
@@ -120,9 +129,13 @@ bb_candy_clean %>%
 
 ```
 
+#### Answer - 'Any Full Sized Candy Bar' receieved the highest 'joy' rating, 'Regular M&M's' receieved the highest 'meh' rating and 'Broken Glow Stick' recieved the highest 'despair' rating.
+
 ### Question 4
 
 #### How many people rated Starburst as despair?
+
+#### For this question I filtered by 'despair' and 'starburst' respectively, then applied a count:
 
 ```{r}
 
@@ -133,9 +146,13 @@ bb_candy_clean %>%
 
 ```
 
+#### Answer - 1,990 people rated 'starburst' as 'despair.
+
 ### Question 5
 
 #### Count despair as -1, joy as +1 and meh as 0.
+
+#### For this question, I recoded the reaction column and added a new column for the results:
 
 ```{r}
 
@@ -151,6 +168,8 @@ bb_candy_clean %>%
 ### Question 6
 
 #### What was the most popular candy bar by this rating system for each gender in the dataset?
+
+#### For this question, I filtered each respective gender separately and applied a count to the 'item_gifted' column:
 
 ```{r}
 
@@ -197,9 +216,13 @@ bb_candy_clean %>%
 
 ```
 
+#### Answer - The top rated candy for male, femal and other is 'Regular M&M's and the top rated candy for any gender 'undisclosed' was 'Reese's Peanut Butter Cups.
+
 ### Question 7
 
 #### What was the most popular candy bar in each year?
+
+#### For this question, I applied a filter to the 'year' column and applied a count:
 
 ```{r}
 
@@ -234,9 +257,13 @@ bb_candy_clean %>%
 
 ```
 
+#### Answer - The top rated candy for 2015 was 'Reese's Peanut Butter Cups', for 2016 it was 'Any Full Sized Candy Bar' and for 2017, unfortunately I was unable to get a result as it looks like the rows for 2017 did not 'bind' during the cleaning stage.
+
 ### Question 8
 
 #### What was the most popular candy bar by this rating for people in US, Canada, UK and all other countries?
+
+#### For this question, the first thing I did was pull out the 'unique' names for the country column. I then applied a filter for each country, grouped it by the 'item_gifted' and applied a count: 
 
 ```{r}
 
