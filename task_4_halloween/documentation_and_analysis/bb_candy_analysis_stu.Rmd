@@ -137,7 +137,7 @@ bb_candy_clean %>%
 
 #### How many people rated Starburst as despair?
 
-#### For this question I filtered by 'despair' and 'starburst' respectively, then applied a count:
+##### For this question I filtered by 'despair' and 'starburst' respectively, then applied a count:
 
 ```{r, warning=FALSE}
 
@@ -148,13 +148,13 @@ bb_candy_clean %>%
 
 ```
 
-#### Answer - 1,990 people rated 'starburst' as 'despair.
+##### Answer - 1,990 people rated 'starburst' as 'despair.
 
 ### Question 5
 
 #### Count despair as -1, joy as +1 and meh as 0.
 
-#### For this question, I recoded the reaction column and added a new column for the results:
+##### For this question, I recoded the reaction column and added a new column for the results:
 
 ```{r, warning=FALSE}
 
